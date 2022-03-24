@@ -10,6 +10,11 @@
                 <div class="card-group">
                     <div class="card p-4">
                         <div class="card-body">
+                            <div class="">
+                                {% for message in messages %}
+                                <p class="text-center alert alert-info">{{ message }}</p>
+                                {% endfor %}
+                              </div>
                             <form method="POST" action="{% url 'login' %}">
                                 {% csrf_token %}
                                 <h1>Login</h1>
@@ -38,11 +43,6 @@
                                 </div>
                             </form>
                             <br>
-                            <div class="">
-                              {% for message in messages %}
-                              <h5>{{ message }}</h5>
-                              {% endfor %}
-                            </div>
                         </div>
                     </div>
                     <!--<div class="card text-white bg-primary py-5">

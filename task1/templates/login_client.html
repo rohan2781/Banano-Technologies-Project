@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+<body class="app flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <div class="card-group">
+                    <div class="card p-4">
+                        <div class="card-body">
+                                {% csrf_token %}
+                                <h1>Welcome {{client.username}}</h1>
+                                <p class="text-muted">Account Details</p>
+                                <img src="{{user.profile_pic.url}}" width="60" height="80" align='right' style='padding:2px'>
+                                <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                  </div>
+                                  {% if user.type %}
+                                  <span class="form-control">Designation: &nbsp Patient</span>
+                                  {% else %}
+                                  <span class="form-control">Designation: &nbsp Doctor</span>
+                                  {% endif %}
+                              </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <span class="form-control">User-name: &nbsp{{client.username}}</span>
+                                </div>
+                                <div class="input-group mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <span class="form-control">First-name: &nbsp{{client.first_name}}</span>
+                                </div>
+                                <div class="input-group mb-4">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                  </div>
+                                  <span class="form-control">Last-name: &nbsp{{client.last_name}}</span>
+                              </div>
+                              <div class="input-group mb-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                </div>
+                                <span class="form-control">Email: &nbsp{{client.email}}</span>
+                            </div>
+                            <div class="input-group mb-4">
+                              <div class="input-group-prepend">
+                                  <span class="input-group-text"><i class="fa fa-asterisk"></i></span>
+                              </div>
+                              <span class="form-control">Password: &nbsp{{client.password}}</span>
+                          </div>
+                          <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                            </div>
+                            <span class="form-control">Address: &nbsp{{user.address}}</span>
+                        </div>
+                        <button class="btn btn-primary px-4"><a href="{% url 'logout' %}" style='color:white'>Log-Out</a></button>
+                            <br>
+                        </div>
+                    </div>
+                    <!--<div class="card text-white bg-primary py-5">
+                      <img src="{% static 'core/img/logos/P_T.png' %}" alt="">
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- Bootstrap and necessary plugins -->
+    <script src="{% static 'core/vendors/js/jquery.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/popper.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/pace.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/Chart.min.js'%}"></script>
+
+  <!-- CoreUI main scripts -->
+
+    <script src="{% static 'core/js/app.js'%}"></script>
+
+  <!-- Plugins and scripts required by this views -->
+
+  <!-- Custom scripts required by this view -->
+    <script src="{% static 'core/js/main.js'%}"></script>
+
+</body>
+
+{% endblock %}

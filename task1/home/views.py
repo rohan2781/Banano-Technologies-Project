@@ -2,9 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from .forms import ClientRegistration
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from .models import extended_user
 
 def logins(request):
     if not request.user.is_authenticated:
@@ -42,6 +42,7 @@ def SignUp(request):
             password = request.POST['password']
             confirm_password = request.POST['password1']
             address= request.POST['address']
+            #photo= request.POST['file']
             if User.objects.filter(email=email).exists():
                     messages.info(request,"Email already exists")
             elif User.objects.filter(username=username).exists():
@@ -51,7 +52,10 @@ def SignUp(request):
             else:
                 reg = User.objects.create(username=username, last_name=last_name, email=email, password=password,first_name=first_name)
                 reg.save()
-                return HttpResponse('Succesfull')
+                user=User.objects.get(username=username)
+                reg = extended_user.objects.create(user=user,address=address,profile_pic=request.FILES['file'])
+                reg.save()
+                return HttpResponse('Succesful')
     else:
         logout_view(request)
     return render(request,'sign_up.html')

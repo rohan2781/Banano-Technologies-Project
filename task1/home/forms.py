@@ -1,6 +1,6 @@
 from django.core import validators
 from django import forms
-from .models import Doctor
+from .models import extended_user
 from django.contrib.auth.models import User
 
 class ClientRegistration(forms.ModelForm):

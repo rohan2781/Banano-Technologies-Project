@@ -32,6 +32,29 @@ def logins(request):
     return render(request,'login.html')
 
 
+def SignUp(request):
+    if not request.user.is_authenticated:
+        if request.method=='POST':
+            username = request.POST['uname']
+            first_name = request.POST['fname']
+            last_name = request.POST['lname']
+            email = request.POST['email']
+            password = request.POST['password']
+            confirm_password = request.POST['password1']
+            address= request.POST['address']
+            if User.objects.filter(email=email).exists():
+                    messages.info(request,"Email already exists")
+            elif User.objects.filter(username=username).exists():
+                messages.info(request,"Please Use Different Username")
+            elif password!=confirm_password:
+                messages.info(request,"Password's Didn't Matched")
+            else:
+                reg = User.objects.create(username=username, last_name=last_name, email=email, password=password,first_name=first_name)
+                reg.save()
+                return HttpResponse('Succesfull')
+    else:
+        logout_view(request)
+    return render(request,'sign_up.html')
 
 
 def logout_view(request):

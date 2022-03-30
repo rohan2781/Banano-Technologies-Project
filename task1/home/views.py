@@ -79,7 +79,6 @@ def add_blog(request):
             client=User.objects.get(username=name)
             reg = Blog.objects.create(title=title,category=cat,summary=summary,content=content,draft=type,image=request.FILES['file'],user=name)
             reg.save()
-            messages.info(request,'Blog Added Succesfully ')
             return redirect('/account/'+str(client.id))
         return render(request,'add_blog.html')
     else:
@@ -92,8 +91,29 @@ def client(request,id):
         if user.type:
             blog=Blog.objects.filter(user=client.username)
         else:    
-            blog=Blog.objects.all()
+            blog=Blog.objects.filter(draft=False)
         return render(request,'dashboard.html',{'client':client,'user':user,'blog':blog})
+    else:
+        return redirect('login')
+
+def show(request,id):
+    if request.user.is_authenticated:
+        blog=Blog.objects.get(id=id)
+        client=User.objects.get(username=blog.user)
+        user=extended_user.objects.get(user=client)
+        str=blog.summary
+        l=str.split(' ')
+        s=''
+        p=''
+        if len(l)>15:
+            for i in range(15):
+                s=s+l[i]+' '
+            for i in range(15,len(l)):
+                p=p+l[i]+' '
+        else:
+            s=str
+            p=False
+        return render(request,'view.html',{'client':client,'user':user,'blog':blog,'s':s,'p':p})
     else:
         return redirect('login')
 

@@ -1,0 +1,78 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block greeting %}
+<li class="text-muted">Hello {{ request.user.username }}</li>
+{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item">Home</li>
+<li class="breadcrumb-item">Blog</li>
+{% endblock breadcrumb%}
+{% block content %}
+<script>
+    function change()
+    {
+        var x=document.getElementById('more');
+        var y=document.getElementById('sum');
+        if (y.style.display=='none')
+        {
+            x.style.display='none';
+            y.style.display='block';
+        }
+    }
+</script>
+<style>
+    .feed {
+        padding: 10px; 
+        width:95%;
+      }
+      .textarea{
+        border-radius: 25px;
+        border: 2px solid #73AD21;
+        padding: 10px; 
+        width:85%;
+      }
+      .textarea1{
+        border-radius: 25px;
+        border: 2px solid #73AD21;
+        padding: 5px; 
+        width:25%;
+      }
+</style>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong>Blog : {{ blog.title }}</strong>
+        </div>
+        <div class="callout callout-light">
+            <small class="text-muted">Doctor</small>
+            <br>
+            <strong class="h1">{{ client.username }}  {{ client.last_name }}</strong>
+            <img src="{{user.profile_pic.url}}" width="100" height="100" align='right' style='padding:2px'>
+            <div class="chart-wrapper"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                <canvas id="sparkline-chart-3" width="86" height="25" class="chartjs-render-monitor" style="display: block; width: 86px; height: 25px;"></canvas>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-8">
+                    <br><br>
+                    <hr class="mt-0">
+                    <span align='center'><img src="{{blog.image.url}}" width="200px" height="200px" style='padding:2px'></span>
+                </div>
+            </div>
+            <br>
+        </div>
+        <div class="callout callout-light">
+            <strong class="h4">Summary : </strong>{{s}}
+            {% if p %}<a href='#' id='more' onclick="return change()" style='color: DodgerBlue;cursor: pointer'>...more</a><span id='sum' style='display:none'>{{p}}</span>{% endif %}
+            <div class="chart-wrapper"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                <canvas id="sparkline-chart-3" width="86" height="25" class="chartjs-render-monitor" style="display: block; width: 86px; height: 25px;"></canvas>
+        </div>
+    </div>
+    <div style='padding:30px'></div>
+    <div class="callout callout-light">
+        <strong class="h4">Content : </strong>{{blog.content}}
+        <div class="chart-wrapper"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+            <canvas id="sparkline-chart-3" width="86" height="25" class="chartjs-render-monitor" style="display: block; width: 86px; height: 25px;"></canvas>
+    </div>
+</div>
+{% endblock %}

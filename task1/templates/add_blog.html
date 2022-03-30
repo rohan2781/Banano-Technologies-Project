@@ -8,7 +8,7 @@
                 <div class="card-group">
                     <div class="card p-4">
                         <div class="card-body">
-                            <form method="POST" action="{% url 'sign-up' %}" enctype='multipart/form-data'>
+                            <form method="POST" action="" enctype='multipart/form-data'>
                                 {% csrf_token %}
                                 <h1>BLOG</h1>
                                 <p class="text-muted">Create your Blog</p>
@@ -26,7 +26,7 @@
                                             <span class="input-group-text"><i class="fa fa-users"></i></span>
                                         </div>
                                         <select style='width:90px' name='cat' required>
-                                        <option >Select</option>
+                                        <option value=''>Select</option>
                                         <option value="mental health">Mental Health</option>
                                         <option value="heart diseases">Heart Diseases</option>
                                         <option value="covid19">Covid 19</option>
@@ -55,10 +55,10 @@
                                     <input type="file" class="form-control" name="file" required>
                                 </div>
                                 &nbsp<input type="checkbox" id="type" name="type" value="1">
-                                &nbsp<label for="developer"> Doctor ? Check This box</label><br><br>
+                                &nbsp<label for="developer">Save as Draft ?</label><br><br>
                                 <div class="row">
                                     <div class="col-6">
-                                        <button type="submit" class="btn btn-primary px-4">Sign-Up</button>
+                                        <button type="submit" class="btn btn-primary px-4">Save</button>
                                     </div>
                                     <div class="col-6 text-right">
                                         <input type="reset" class="btn btn-primary px-4" value='Re-set'>

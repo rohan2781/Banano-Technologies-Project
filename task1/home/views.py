@@ -1,10 +1,11 @@
+from unicodedata import category
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-from .models import extended_user
+from .models import extended_user,Blog
 
 
 def logins(request):
@@ -43,9 +44,9 @@ def SignUp(request):
             password = request.POST['password']
             confirm_password = request.POST['password1']
             address= request.POST['address']
-            type=True
+            type=False
             if request.POST.get('type') == "1":
-                type=False
+                type=True
             if User.objects.filter(email=email).exists():
                 messages.info(request,"Email already exists")
             elif User.objects.filter(username=username).exists():
@@ -71,6 +72,15 @@ def add_blog(request):
             cat = request.POST['cat']
             summary = request.POST['summary']
             content = request.POST['content']
+            type=False
+            if request.POST.get('type') == "1":
+                type=True
+            name=request.user.username
+            client=User.objects.get(username=name)
+            reg = Blog.objects.create(title=title,category=cat,summary=summary,content=content,draft=type,image=request.FILES['file'],user=name)
+            reg.save()
+            messages.info(request,'Blog Added Succesfully ')
+            return redirect('/account/'+str(client.id))
         return render(request,'add_blog.html')
     else:
         return redirect('login')
@@ -79,8 +89,11 @@ def client(request,id):
     if request.user.is_authenticated:
         client=User.objects.get(pk=id)
         user=extended_user.objects.get(user=client)
-
-        return render(request,'dashboard.html',{'client':client,'user':user})
+        if user.type:
+            blog=Blog.objects.filter(user=client.username)
+        else:    
+            blog=Blog.objects.all()
+        return render(request,'dashboard.html',{'client':client,'user':user,'blog':blog})
     else:
         return redirect('login')
 

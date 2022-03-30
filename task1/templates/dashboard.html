@@ -5,7 +5,7 @@
       </li>
 {% endblock %}
 {% block greeting %}
-<li class="text-muted">Hello, Admin</li>
+<li class="text-muted">Hello, {{request.user.username}}</li>
 {% endblock %}
 {% block home %}
             <li class="nav-title">
@@ -16,6 +16,7 @@
             </li>
 {% endblock %}
 {% block client %}
+{% if user.type %}
           <li class="nav-title">
             ADD
           </li>
@@ -27,20 +28,20 @@
               </li>
             </ul>
           </li>
+{% endif %}
 {% endblock %}
 
 
 {% load static %}
 {% block breadcrumb %}
-<li class="breadcrumb-item active">Admin</li>
+<li class="breadcrumb-item active">BLOG'S</li>
 {% endblock breadcrumb%}
 {% block content %}
-
 <div class="col-md-12">
   <div class="card">
     {% block content1 %}
 <div class="card-header">
-    <i class="fa fa-align-justify"></i>Projects
+    <i class="fa fa-align-justify"></i>Mental Health
 </div>
 <div class="">
   {% for message in messages %}
@@ -73,33 +74,22 @@
       cursor: pointer;}
     </style>
     <ol start="1">
-    {% if project %}
+    {% if blog %}
   <table border=0 id='table1' align='left'>
-    {% for i in project %}
+    {% for i in blog %}
+    {% if i.category == 'mental health' %}
     <tr id='tr1'> 
       <td id='td1' width='50px' >
         {{forloop.counter}}.
       </td>
     <td id='td1' style='text-align: left;'>
-    {{ i.name }}
-    </td>
-    <!--{% for j in client %}
-      {% if j.email == i.person %}
-      <td id='td1' style='text-align: center;'>
-      Client : {{j.first_name}}
-      </td>
-      {% endif %}
-      {% endfor %}-->
-    <td id='td1' width='70px' align='center'>
-      <a href="{% url 'project' i.id %}"><i class="fa fa-eye" style='cursor: pointer;font-size:20px'></i></a>
+    {{ i.title }}
     </td>
     <td id='td1' width='70px' align='center'>
-      <a href="{% url 'update_project' i.id %}"><i class="fa fa-edit" style='cursor: pointer;font-size:20px'></i></a></a>
-    </td>
-    <td id='td1' width='50px'>
-      <a href="{% url 'remove_project' i.id %}"><i class="fa fa-trash" style='cursor: pointer;font-size:16px'></i></a>
+      <a href=""><i class="fa fa-eye" style='cursor: pointer;font-size:20px'></i></a>
     </td>
     </tr>
+    {% endif %}
     {%endfor%}
   </table>
   {% else %}
@@ -110,4 +100,193 @@
   </div>
 </div>
 
+
+<div class="col-md-12">
+  <div class="card">
+    {% block content2 %}
+<div class="card-header">
+    <i class="fa fa-align-justify"></i>Heart Diseases
+</div>
+<div class="">
+  {% for message in messages %}
+  <p class="text-center alert alert-info">{{ message }}</p>
+  {% endfor %}
+</div>
+<style>
+    #table1 {
+      border-collapse: collapse;
+      width:95%;
+      font-family:sans-serif;
+      font-weight:bold;
+    }
+    
+    #th1, #td1 {
+      text-align: center;
+      padding: 10px;
+    }
+    #tr1:nth-child(even){background-color: #f2f2f2}
+    #tr1:hover {background-color: #c9c2c1;}
+    #button{background-color: #8c8b8b;border: none;
+      color: white;
+      padding: 5px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      margin: 3px 1px;
+      font-family:sans-serif;
+      cursor: pointer;}
+    </style>
+    <ol start="1">
+    {% if blog %}
+  <table border=0 id='table1' align='left'>
+    {% for i in blog %}
+    {% if i.category == 'heart diseases' %}
+    <tr id='tr1'> 
+      <td id='td1' width='50px' >
+        {{forloop.counter}}.
+      </td>
+    <td id='td1' style='text-align: left;'>
+    {{ i.title }}
+    </td>
+    <td id='td1' width='70px' align='center'>
+      <a href=""><i class="fa fa-eye" style='cursor: pointer;font-size:20px'></i></a>
+    </td>
+    </tr>
+    {% endif %}
+    {%endfor%}
+  </table>
+  {% else %}
+    <h4 class = 'text-center alert alert-warning'>No records to show</h4>
+    {% endif %}      
+</ol>
+{% endblock %}
+  </div>
+</div>
+
+<div class="col-md-12">
+  <div class="card">
+    {% block content3 %}
+<div class="card-header">
+    <i class="fa fa-align-justify"></i>Covid 19
+</div>
+<div class="">
+  {% for message in messages %}
+  <p class="text-center alert alert-info">{{ message }}</p>
+  {% endfor %}
+</div>
+<style>
+    #table1 {
+      border-collapse: collapse;
+      width:95%;
+      font-family:sans-serif;
+      font-weight:bold;
+    }
+    
+    #th1, #td1 {
+      text-align: center;
+      padding: 10px;
+    }
+    #tr1:nth-child(even){background-color: #f2f2f2}
+    #tr1:hover {background-color: #c9c2c1;}
+    #button{background-color: #8c8b8b;border: none;
+      color: white;
+      padding: 5px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      margin: 3px 1px;
+      font-family:sans-serif;
+      cursor: pointer;}
+    </style>
+    <ol start="1">
+    {% if blog %}
+  <table border=0 id='table1' align='left'>
+    {% for i in blog %}
+    {% if i.category == 'covid19' %}
+    <tr id='tr1'> 
+      <td id='td1' width='50px' >
+        {{forloop.counter}}.
+      </td>
+    <td id='td1' style='text-align: left;'>
+    {{ i.title }}
+    </td>
+    <td id='td1' width='70px' align='center'>
+      <a href=""><i class="fa fa-eye" style='cursor: pointer;font-size:20px'></i></a>
+    </td>
+    </tr>
+    {% endif %}
+    {%endfor%}
+  </table>
+  {% else %}
+    <h4 class = 'text-center alert alert-warning'>No records to show</h4>
+    {% endif %}      
+</ol>
+{% endblock %}
+  </div>
+</div>
+
+<div class="col-md-12">
+  <div class="card">
+    {% block content4 %}
+<div class="card-header">
+    <i class="fa fa-align-justify"></i>Immunization
+</div>
+<div class="">
+  {% for message in messages %}
+  <p class="text-center alert alert-info">{{ message }}</p>
+  {% endfor %}
+</div>
+<style>
+    #table1 {
+      border-collapse: collapse;
+      width:95%;
+      font-family:sans-serif;
+      font-weight:bold;
+    }
+    
+    #th1, #td1 {
+      text-align: center;
+      padding: 10px;
+    }
+    #tr1:nth-child(even){background-color: #f2f2f2}
+    #tr1:hover {background-color: #c9c2c1;}
+    #button{background-color: #8c8b8b;border: none;
+      color: white;
+      padding: 5px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      margin: 3px 1px;
+      font-family:sans-serif;
+      cursor: pointer;}
+    </style>
+    <ol start="1">
+    {% if blog %}
+  <table border=0 id='table1' align='left'>
+    {% for i in blog %}
+    {% if i.category == 'immunization' %}
+    <tr id='tr1'> 
+      <td id='td1' width='50px' >
+        {{forloop.counter}}.
+      </td>
+    <td id='td1' style='text-align: left;'>
+    {{ i.title }}
+    </td>
+    <td id='td1' width='70px' align='center'>
+      <a href=""><i class="fa fa-eye" style='cursor: pointer;font-size:20px'></i></a>
+    </td>
+    </tr>
+    {% endif %}
+    {%endfor%}
+  </table>
+  {% else %}
+    <h4 class = 'text-center alert alert-warning'>No records to show</h4>
+    {% endif %}      
+</ol>
+{% endblock %}
+  </div>
+</div>
 {% endblock %}

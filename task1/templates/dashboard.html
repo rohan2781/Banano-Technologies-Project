@@ -1,0 +1,113 @@
+{% extends 'base1.html' %}
+{% block navigate %}
+      <li class="nav-item px-3">
+        <a class="nav-link" href="">Home</a>
+      </li>
+{% endblock %}
+{% block greeting %}
+<li class="text-muted">Hello, Admin</li>
+{% endblock %}
+{% block home %}
+            <li class="nav-title">
+                Home
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href=""><i class="fa fa-home"></i> Home</a>
+            </li>
+{% endblock %}
+{% block client %}
+          <li class="nav-title">
+            ADD
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-tachometer-alt"></i>Blog Post</a>
+            <ul class="nav-dropdown-items">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'add-blog' %}"><i class="fa fa-plus ml-2"></i> Add Blog</a>
+              </li>
+            </ul>
+          </li>
+{% endblock %}
+
+
+{% load static %}
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Admin</li>
+{% endblock breadcrumb%}
+{% block content %}
+
+<div class="col-md-12">
+  <div class="card">
+    {% block content1 %}
+<div class="card-header">
+    <i class="fa fa-align-justify"></i>Projects
+</div>
+<div class="">
+  {% for message in messages %}
+  <p class="text-center alert alert-info">{{ message }}</p>
+  {% endfor %}
+</div>
+<style>
+    #table1 {
+      border-collapse: collapse;
+      width:95%;
+      font-family:sans-serif;
+      font-weight:bold;
+    }
+    
+    #th1, #td1 {
+      text-align: center;
+      padding: 10px;
+    }
+    #tr1:nth-child(even){background-color: #f2f2f2}
+    #tr1:hover {background-color: #c9c2c1;}
+    #button{background-color: #8c8b8b;border: none;
+      color: white;
+      padding: 5px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      margin: 3px 1px;
+      font-family:sans-serif;
+      cursor: pointer;}
+    </style>
+    <ol start="1">
+    {% if project %}
+  <table border=0 id='table1' align='left'>
+    {% for i in project %}
+    <tr id='tr1'> 
+      <td id='td1' width='50px' >
+        {{forloop.counter}}.
+      </td>
+    <td id='td1' style='text-align: left;'>
+    {{ i.name }}
+    </td>
+    <!--{% for j in client %}
+      {% if j.email == i.person %}
+      <td id='td1' style='text-align: center;'>
+      Client : {{j.first_name}}
+      </td>
+      {% endif %}
+      {% endfor %}-->
+    <td id='td1' width='70px' align='center'>
+      <a href="{% url 'project' i.id %}"><i class="fa fa-eye" style='cursor: pointer;font-size:20px'></i></a>
+    </td>
+    <td id='td1' width='70px' align='center'>
+      <a href="{% url 'update_project' i.id %}"><i class="fa fa-edit" style='cursor: pointer;font-size:20px'></i></a></a>
+    </td>
+    <td id='td1' width='50px'>
+      <a href="{% url 'remove_project' i.id %}"><i class="fa fa-trash" style='cursor: pointer;font-size:16px'></i></a>
+    </td>
+    </tr>
+    {%endfor%}
+  </table>
+  {% else %}
+    <h4 class = 'text-center alert alert-warning'>No records to show</h4>
+    {% endif %}      
+</ol>
+{% endblock %}
+  </div>
+</div>
+
+{% endblock %}

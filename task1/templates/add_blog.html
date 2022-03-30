@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<body class="app flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card-group">
+                    <div class="card p-4">
+                        <div class="card-body">
+                            <form method="POST" action="{% url 'sign-up' %}" enctype='multipart/form-data'>
+                                {% csrf_token %}
+                                <h1>BLOG</h1>
+                                <p class="text-muted">Create your Blog</p>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <input type="text"
+                                       class="form-control" name="title" placeholder='Title' required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Select Category</label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-users"></i></span>
+                                        </div>
+                                        <select style='width:90px' name='cat' required>
+                                        <option >Select</option>
+                                        <option value="mental health">Mental Health</option>
+                                        <option value="heart diseases">Heart Diseases</option>
+                                        <option value="covid19">Covid 19</option>
+                                        <option value="immunization">Immunization</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                    </div>
+                                    <input type="text"
+                                       class="form-control" name="summary" placeholder='Summary' required>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                                    </div>
+                                    <input type="text" style='height:90px'
+                                       class="form-control" name="content" placeholder='Content' required>
+                                </div>
+                                <div class="input-group mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-file"></i></span>
+                                    </div>
+                                    <input type="file" class="form-control" name="file" required>
+                                </div>
+                                &nbsp<input type="checkbox" id="type" name="type" value="1">
+                                &nbsp<label for="developer"> Doctor ? Check This box</label><br><br>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-primary px-4">Sign-Up</button>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <input type="reset" class="btn btn-primary px-4" value='Re-set'>
+                                    </div>
+                                </div>
+                            </form>
+                            <br>
+                            <div class="">
+                              {% for message in messages %}
+                              <h5>{{ message }}</h5>
+                              {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="card text-white bg-primary py-5">
+                      <img src="{% static 'core/img/logos/P_T.png' %}" alt="">
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- Bootstrap and necessary plugins -->
+    <script src="{% static 'core/vendors/js/jquery.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/popper.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/pace.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/Chart.min.js'%}"></script>
+
+  <!-- CoreUI main scripts -->
+
+    <script src="{% static 'core/js/app.js'%}"></script>
+
+  <!-- Plugins and scripts required by this views -->
+
+  <!-- Custom scripts required by this view -->
+    <script src="{% static 'core/js/main.js'%}"></script>
+
+</body>
+
+{% endblock %}

@@ -64,11 +64,23 @@ def SignUp(request):
         logout_view(request)
     return render(request,'sign_up.html')
 
+def add_blog(request):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            title = request.POST['title']
+            cat = request.POST['cat']
+            summary = request.POST['summary']
+            content = request.POST['content']
+        return render(request,'add_blog.html')
+    else:
+        return redirect('login')
+
 def client(request,id):
     if request.user.is_authenticated:
         client=User.objects.get(pk=id)
         user=extended_user.objects.get(user=client)
-        return render(request,'login_client.html',{'client':client,'user':user})
+
+        return render(request,'dashboard.html',{'client':client,'user':user})
     else:
         return redirect('login')
 

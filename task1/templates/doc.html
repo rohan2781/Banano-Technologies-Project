@@ -1,0 +1,67 @@
+{% extends 'base1.html' %}
+{% block greeting %}
+<li class="text-muted">Hello, {{ request.user.username }}</li>
+{% endblock %}
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Home</li>
+<li class="breadcrumb-item active">Appointment</li>
+{% endblock breadcrumb%}
+{% block content %}
+<div class="card-header">
+    <i class="fa fa-align-justify"></i>Book Appointment
+</div>
+<div class="">
+  {% for message in messages %}
+  <p class="text-center alert alert-info">{{ message }}</p>
+  {% endfor %}
+</div>
+<style>
+    #table1 {
+      border-collapse: collapse;
+      width:60%;
+      font-family:sans-serif;
+      font-weight:bold;
+    }
+    
+    #th1, #td1 {
+      text-align: center;
+      padding: 10px;
+    }
+    #tr1:nth-child(even){background-color: #f2f2f2}
+    #tr1:hover {background-color: #c9c2c1;}
+    #button{background-color: #8c8b8b;border: none;
+      color: white;
+      padding: 5px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      margin: 3px 1px;
+      font-family:sans-serif;
+      cursor: pointer;}
+    </style>
+    <ol start="1">
+    {% if user %}
+    <table border=0 id='table1' align='center'>
+    {% for i in user %}
+    <tr id='tr1'> 
+    <td id='td1' width='50px' >
+      {{forloop.counter}}.
+    </td>
+    <td id='td1' style='text-align: left;'>
+    Dr. {{ i.user.first_name }} {{ i.user.last_name }}
+    </td>
+    <td id='td1' style='text-align:center;'>
+      <img src="{{i.profile_pic.url}}" width="100" height="100" align='center' style='padding:2px'>
+    </td>
+    <td id='td1' width='70px' align='right'>
+      <a href="{% url 'appoint' i.id %}" class="btn btn-primary px-4">Book Appointment</a>
+    </td>
+    </tr>
+    {%endfor%}
+  </table>
+  {% else %}
+    <h4 class = 'text-center alert alert-warning'>No records to show</h4>
+    {% endif %}      
+  </ol>
+{% endblock %}

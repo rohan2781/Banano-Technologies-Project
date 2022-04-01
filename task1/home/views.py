@@ -96,6 +96,21 @@ def client(request,id):
     else:
         return redirect('login')
 
+def book(request,id):
+    if request.user.is_authenticated:
+        user=extended_user.objects.filter(type=True)
+        return render(request,'doc.html',{'user':user})
+    else:
+        return redirect('login')
+
+def appoint(request,id):
+    if request.user.is_authenticated:
+        user=extended_user.objects.filter(type=True)
+        client=User.objects.get(pk=id)
+        return render(request,'appoint.html',{'user':user,'client':client})
+    else:
+        return redirect('login')
+
 def show(request,id):
     if request.user.is_authenticated:
         blog=Blog.objects.get(id=id)

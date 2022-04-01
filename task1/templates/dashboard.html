@@ -28,6 +28,18 @@
               </li>
             </ul>
           </li>
+{% else %}
+          <li class="nav-title">
+          BOOK
+          </li>
+          <li class="nav-item nav-dropdown">
+          <a class="nav-link nav-dropdown-toggle" href="#"><i class="fa fa-tachometer-alt"></i>Appointment</a>
+          <ul class="nav-dropdown-items">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'book' request.user.id %}"><i class="fa fa-plus ml-2"></i>Book</a>
+            </li>
+          </ul>
+          </li>
 {% endif %}
 {% endblock %}
 

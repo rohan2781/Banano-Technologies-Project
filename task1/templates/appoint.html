@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<body class="app flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card-group">
+                    <div class="card p-4">
+                        <div class="card-body">
+                          <p class="text-center alert alert-info">Confirm Appointment</p>
+                          <form class="" action="" method="POST">
+                            Doctor : <input type="text"class="form-control" name="doc" value="{{client.first_name}} {{client.last_name}}" readonly> <br>
+                            Patient : <input type="text"class="form-control" name="patient" value="{{request.user.first_name}} {{request.user.last_name}}" readonly> <br>
+                            Required Speciality : <input type="text"class="form-control" name="speciality" placeholder='Speciality' required> <br>
+                            Date Of Appointment : <input type="date"class="form-control" name="date" placeholder='Date'required><br>
+                            Start Time of Appointment: <input type="time"class="form-control" name="time" placeholder='Time' required><br>
+                            {% csrf_token %} <br>
+                            <input type="Submit" class="btn btn-danger" name="" value="Confirm">
+                            <a href="{% url 'book' request.user.id  %}" class="btn btn-success">Return</a>
+                          </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="card text-white bg-primary py-5">
+                      <img src="{% static 'core/img/logos/P_T.png' %}" alt="">
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+  <!-- Bootstrap and necessary plugins -->
+    <script src="{% static 'core/vendors/js/jquery.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/popper.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/pace.min.js'%}"></script>
+    <script src="{% static 'core/vendors/js/Chart.min.js'%}"></script>
+
+  <!-- CoreUI main scripts -->
+
+    <script src="{% static 'core/js/app.js'%}"></script>
+
+  <!-- Plugins and scripts required by this views -->
+
+  <!-- Custom scripts required by this view -->
+    <script src="{% static 'core/js/main.js'%}"></script>
+
+</body>
+
+{% endblock %}

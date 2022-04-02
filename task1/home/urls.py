@@ -10,4 +10,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('account/<str:id>',views.client,name='client'),
     path('view/<str:id>',views.show,name='show'),
+    path('booked/<str:id>',views.done,name='done'),
 ]

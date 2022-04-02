@@ -17,3 +17,9 @@ class Blog(models.Model):
     content=models.TextField(max_length=500,blank=True)
     draft= models.BooleanField(default=False)
 
+class Appointment(models.Model):
+    doctor= models.CharField(max_length=80,default='NULL')
+    patient= models.CharField(max_length=80,default='NULL')
+    speciality=models.CharField(max_length=80,default='NULL')
+    date = models.DateField()
+    time=models.TimeField()

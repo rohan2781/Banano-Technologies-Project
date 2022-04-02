@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from unicodedata import category
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
@@ -5,8 +6,8 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
-from .models import extended_user,Blog
-
+from .models import Appointment, extended_user,Blog
+import home.setup as setup
 
 def logins(request):
     if not request.user.is_authenticated:
@@ -103,10 +104,56 @@ def book(request,id):
     else:
         return redirect('login')
 
+def done(request,id):
+    if request.user.is_authenticated:
+        user=Appointment.objects.get(id=id)
+        time=user.time
+        time=str(time)
+        x=time.split(':')
+        x[1]=int(x[1])+45
+        endtime=str(x[0])+":"+str(x[1])
+        return render(request,'booked.html',{'user':user,'endtime':endtime})
+    else:
+        return redirect('login')
+
 def appoint(request,id):
     if request.user.is_authenticated:
+        if request.method=='POST':
+            doctor = request.POST['doc']
+            patient= request.POST['patient']
+            speciality = request.POST['speciality']
+            date = request.POST['date']
+            time=request.POST['time']
+            reg = Appointment.objects.create(doctor=doctor,patient=patient,speciality=speciality,date=date,time=time)
+            reg.save()
+            x=time.split(':')
+            x[1]=int(x[1])+45
+            endtime=str(x[0])+":"+str(x[1])
+            template={
+            "summary": "Appointment with "+doctor+"-"+patient+"speciality"+speciality,
+            "description": "This a description",
+            "start": {
+                "dateTime": date+"T"+time+":00",
+                "timeZone": "America/El_Salvador"
+            },
+            "end": {
+                "dateTime": date+"T"+endtime+":00",
+                "timeZone": "America/El_Salvador"
+            },
+            "attendees": [{ "email": "email@gmail.com" }],
+            "reminders": {
+                "useDefault": False,
+                "overrides": [
+                { "method": "email", "minutes": 30 },
+                { "method": "popup", "minutes": 10 }
+                ]
+            }
+            }
+            setup.create_event(template)
+            return redirect('/booked/'+str(reg.id))
         user=extended_user.objects.filter(type=True)
         client=User.objects.get(pk=id)
+        setup.get_crendetials_google()
         return render(request,'appoint.html',{'user':user,'client':client})
     else:
         return redirect('login')
